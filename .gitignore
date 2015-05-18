@@ -4,3 +4,4 @@ composer.lock
 coverage
 coverage.xml
 test.php
+*.swp
