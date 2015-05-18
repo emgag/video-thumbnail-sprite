@@ -1,0 +1,25 @@
+{
+    "name": "emgag/video-thumbnail-sprite",
+    "description": "PHP library for generating video thumbnail sprites",
+    "require": {
+        "intervention/image": "~2.0",
+        "symfony/process": "~2.5",
+        "captioning/captioning": "~2.0",
+        "php-ffmpeg/php-ffmpeg": "~0.6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.6.*"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Matthias Blaser",
+            "email": "git@mooch.ch"
+        }
+    ],
+    "autoload": {
+	    "psr-4": {
+		    "Emgag\\Video\\": "src/"
+	    }
+    }
+}
