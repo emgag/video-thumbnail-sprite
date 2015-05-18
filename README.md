@@ -1,5 +1,6 @@
 # video-thumbnail-sprite
 
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![Project Status: Wip - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/0.1.0/wip.svg)](http://www.repostatus.org/#wip)
 
 PHP library for generating video thumbnail sprites to be used for thumbnails in [JWPlayer](http://support.jwplayer.com/customer/portal/articles/1407439-adding-preview-thumbnails)'s seek bar. For a real world example used in production, see [gameswelt.de](http://www.gameswelt.de/the-witcher-3-wild-hunt/test/multipler-rollenspielorgasmus,238958).
@@ -32,3 +33,7 @@ Uses:
 * [intervention/image](https://github.com/Intervention/image)
 * [php-ffmpeg/php-ffmpeg](https://github.com/PHP-FFMpeg/PHP-FFMpeg)
 * [symfony/process](https://github.com/symfony/Process)
+
+## License
+
+video-thumbnail-sprite is licensed under the [MIT License](http://opensource.org/licenses/MIT).
