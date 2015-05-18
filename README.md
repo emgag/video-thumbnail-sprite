@@ -1,7 +1,7 @@
 # video-thumbnail-sprite
 PHP library for generating video thumbnail sprites to be used for thumbnails in [JWPlayer](http://support.jwplayer.com/customer/portal/articles/1407439-adding-preview-thumbnails)'s seek bar. For a real world example used in production, see [gameswelt.de](http://www.gameswelt.de/the-witcher-3-wild-hunt/test/multipler-rollenspielorgasmus,238958).
 
-WIP, nothing to see here atm
+WIP, doesn't work so far & nothing to see here atm
 
 ## System requirements
 
