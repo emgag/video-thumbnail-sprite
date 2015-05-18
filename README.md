@@ -28,7 +28,7 @@ Inspired by [vlanard/videoscripts](https://github.com/vlanard/videoscripts) and 
 Uses:
 
 * [captioning/captioning](https://github.com/captioning/captioning)
-* [emgag/tempdir](https://github.com/emgag/flysystem-tempdir)
+* [emgag/flysystem-tempdir](https://github.com/emgag/flysystem-tempdir)
 * [intervention/image](https://github.com/Intervention/image)
 * [php-ffmpeg/php-ffmpeg](https://github.com/PHP-FFMpeg/PHP-FFMpeg)
 * [symfony/process](https://github.com/symfony/Process)
