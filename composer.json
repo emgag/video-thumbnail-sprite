@@ -1,7 +1,11 @@
 {
     "name": "emgag/video-thumbnail-sprite",
     "description": "PHP library for generating video thumbnail sprites",
+    "keywords": ["jwplayer", "sprite", "ffmpeg"],
+    "homepage": "https://github.com/emgag/video-thumbnail-sprite",
+    "type": "library",
     "require": {
+	"php": ">=5.5",
         "intervention/image": "~2.0",
         "symfony/process": "~2.5",
         "captioning/captioning": "~2.0",
