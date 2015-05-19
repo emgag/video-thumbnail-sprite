@@ -1,6 +1,6 @@
 <?php
 
-use Emgag\Video\ThumbnailSprite;
+use Emgag\Video\ThumbnailSprite\ThumbnailSprite;
 use GuzzleHttp\Client;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;

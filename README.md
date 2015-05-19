@@ -16,11 +16,32 @@ Tested with >=5.5, following binaries need to be installed
 
 ## Installation
 
-TBD
+```
+composer require emgag/video-thumbnail-sprite
+```
 
 ## Usage
 
-TBD
+```PHP
+use Emgag\Video\ThumbnailSprite\ThumbnailSprite;
+
+
+$sprite = new ThumbnailSprite();
+$sprite->setSource('path-to-source-video.mp4');
+$sprite->setOutputDirectory('dir-to-store-sprite-and-vtt');
+// filename prefix for image sprite and WebVTT file (defaults to "sprite", resulting in "sprite.jpg" and "sprite.vtt")
+$sprite->setPrefix('sprite');
+// absolute URL of sprite image or relative to where the WebVTT file is stored
+$sprite->setUrlPrefix('http://example.org/sprites');
+// sampling rate in seconds
+$sprite->setRate(10);
+// minimum number of images (will modify sampling rate accordingly if it would result in fewer images than this)
+$sprite->setMinThumbs(20);
+// width of one thumbnail in px
+$sprite->setWidth(120);
+// write sprite and vtt file
+$sprite->write();
+```
 
 ##Acknowledgments
 

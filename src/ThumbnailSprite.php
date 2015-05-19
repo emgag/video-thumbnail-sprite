@@ -1,6 +1,6 @@
 <?php
 
-namespace Emgag\Video;
+namespace Emgag\Video\ThumbnailSprite;
 
 use Captioning\Format\WebvttCue;
 use Captioning\Format\WebvttFile;
@@ -8,7 +8,6 @@ use DateTime;
 use Emgag\Flysystem\Tempdir;
 use FFMpeg\FFProbe;
 use Intervention\Image\ImageManagerStatic as Image;
-use League\Flysystem\Exception;
 use League\Flysystem\Plugin\ListFiles;
 use RuntimeException;
 use Symfony\Component\Process\Process;
