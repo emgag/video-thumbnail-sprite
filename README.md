@@ -1,11 +1,10 @@
 # video-thumbnail-sprite
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-[![Project Status: Wip - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/0.1.0/wip.svg)](http://www.repostatus.org/#wip)
+[![Packagist Version](https://img.shields.io/packagist/v/emgag/video-thumbnail-sprite.svg?style=flat-square)](https://packagist.org/packages/emgag/video-thumbnail-sprite)
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active)
 
 PHP library for generating video thumbnail sprites to be used for thumbnails in [JWPlayer](http://support.jwplayer.com/customer/portal/articles/1407439-adding-preview-thumbnails)'s seek bar. For a real world example used in production, see [gameswelt.de](http://www.gameswelt.de/the-witcher-3-wild-hunt/test/multipler-rollenspielorgasmus,238958).
-
-WIP, doesn't work so far & nothing to see here atm
 
 ## System requirements
 
