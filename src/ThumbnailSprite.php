@@ -4,9 +4,13 @@ namespace Emgag\Video;
 
 use Captioning\Format\WebvttCue;
 use Captioning\Format\WebvttFile;
+use DateTime;
 use Emgag\Flysystem\Tempdir;
 use FFMpeg\FFProbe;
 use Intervention\Image\ImageManagerStatic as Image;
+use League\Flysystem\Exception;
+use League\Flysystem\Plugin\ListFiles;
+use RuntimeException;
 use Symfony\Component\Process\Process;
 
 /**
@@ -79,7 +83,11 @@ class ThumbnailSprite
      */
     public function setRate($rate)
     {
-        $this->rate = $rate;
+        if($rate == 0){
+            throw new \InvalidArgumentException('rate must be greater than 0');
+        }
+
+        $this->rate = intval($rate);
     }
 
     /**
@@ -108,12 +116,12 @@ class ThumbnailSprite
 
     /**
      * @param string $source
-     * @throws \notfoundException
+     * @throws RuntimeException
      */
     public function setSource($source)
     {
         if (!file_exists($source)) {
-            throw new \notfoundException(sprintf("source video file %s not found", $source));
+            throw new RuntimeException(sprintf("source video file %s not found", $source));
         }
 
         $this->source = $source;
@@ -175,7 +183,8 @@ class ThumbnailSprite
     public function generate()
     {
         // create temporay directory
-        $tempDir = new TempDir('sprite');
+        $tempDir = new Tempdir('sprite');
+        $tempDir->addPlugin(new ListFiles);
 
         // get basic info about video
         $ffprobe  = FFProbe::create()->format($this->getSource());
@@ -234,7 +243,7 @@ class ThumbnailSprite
         $proc->run();
 
         if (!$proc->isSuccessful()) {
-            throw new \RuntimeException($proc->getErrorOutput());
+            throw new RuntimeException($proc->getErrorOutput());
         }
 
         // create WebVTT output
@@ -277,8 +286,8 @@ class ThumbnailSprite
      */
     private function secondsToCue($seconds)
     {
-        return (new \DateTime("@0"))
-            ->diff(new \DateTime("@$seconds"))
+        return (new DateTime("@0"))
+            ->diff(new DateTime("@$seconds"))
             ->format('%H:%I:%S.000');
     }
 
