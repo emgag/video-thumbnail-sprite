@@ -41,7 +41,7 @@ $sprite->setMinThumbs(20);
 // width of one thumbnail in px
 $sprite->setWidth(120);
 // write sprite and vtt file
-$sprite->write();
+$sprite->generate();
 ```
 
 ##Acknowledgments
