@@ -10,7 +10,7 @@ PHP library for generating video thumbnail sprites to be used for thumbnails in 
 
 Tested with >=5.5, following binaries need to be installed
 
-* [ffmpeg](http://www.ffmpeg.org/download.html) (tested with v2.2)
+* [ffmpeg](http://www.ffmpeg.org/download.html) (tested with v2.2) or [ffmpegthumbnailer](https://github.com/dirkvdb/ffmpegthumbnailer)
 * [imagemagick](http://www.imagemagick.org/script/binary-releases.php) (tested with v6.6)
 
 ## Installation
@@ -26,23 +26,31 @@ use Emgag\Video\ThumbnailSprite\ThumbnailSprite;
 
 
 $sprite = new ThumbnailSprite();
-$sprite->setSource('path-to-source-video.mp4');
-$sprite->setOutputDirectory('dir-to-store-sprite-and-vtt');
-// filename prefix for image sprite and WebVTT file (defaults to "sprite", 
-// resulting in "sprite.jpg" and "sprite.vtt")
-$sprite->setPrefix('sprite');
-// absolute URL of sprite image or relative to where the WebVTT file is stored
-$sprite->setUrlPrefix('http://example.org/sprites');
-// sampling rate in seconds
-$sprite->setRate(10);
-// minimum number of images (will modify sampling rate accordingly if it would 
-// result in fewer images than this)
-$sprite->setMinThumbs(20);
-// width of one thumbnail in px
-$sprite->setWidth(120);
-// write sprite and vtt file
-$sprite->generate();
+$sprite->setSource('path-to-source-video.mp4')
+       ->setOutputDirectory('dir-to-store-sprite-and-vtt') // filename prefix for image sprite and WebVTT file (defaults to "sprite", resulting in "sprite.jpg" and "sprite.vtt")
+       ->setPrefix('sprite') // absolute URL of sprite image or relative to where the WebVTT file is stored
+       ->setUrlPrefix('http://example.org/sprites') // sampling rate in seconds
+       ->setRate(10) // minimum number of images (will modify sampling rate accordingly if it would result in fewer images than this)
+       ->setMinThumbs(20) // width of one thumbnail in px
+       ->setWidth(120) // write sprite and vtt file
+       ->generate();
 ```
+
+in new version it use ffmpegthumbnailer as default convertor. it is faster than ffmpeg.
+if you want to use ffmpeg should call setConvertor function:
+
+```PHP
+$sprite->setConvertor('ffmpeg');
+
+```
+
+and if you want keep main images of sprite should:
+
+```PHP
+$sprite->keepMainImages()
+       ->setOutputImageDirectory('dir-to-store-images');
+```
+
 
 ##Acknowledgments
 
