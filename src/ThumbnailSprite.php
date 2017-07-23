@@ -374,6 +374,11 @@ class ThumbnailSprite
 
         $vtt->build();
         $vtt->save($vttFile);
+
+        return [
+            'vttFile' => $vttFile,
+            'sprite'  => $spriteFile,
+        ];
     }
 
     /**
