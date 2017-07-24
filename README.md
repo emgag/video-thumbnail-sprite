@@ -27,12 +27,12 @@ use Emgag\Video\ThumbnailSprite\ThumbnailSprite;
 
 $sprite = new ThumbnailSprite();
 $sprite->setSource('path-to-source-video.mp4')
-       ->setOutputDirectory('dir-to-store-sprite-and-vtt') // filename prefix for image sprite and WebVTT file (defaults to "sprite", resulting in "sprite.jpg" and "sprite.vtt")
-       ->setPrefix('sprite') // absolute URL of sprite image or relative to where the WebVTT file is stored
-       ->setUrlPrefix('http://example.org/sprites') // sampling rate in seconds
-       ->setRate(10) // minimum number of images (will modify sampling rate accordingly if it would result in fewer images than this)
-       ->setMinThumbs(20) // width of one thumbnail in px
-       ->setWidth(120) // write sprite and vtt file
+       ->setOutputDirectory('dir-to-store-sprite-and-vtt')
+       ->setPrefix('sprite') // filename prefix for image sprite and WebVTT file (defaults to "sprite", resulting in "sprite.jpg" and "sprite.vtt")
+       ->setUrlPrefix('http://example.org/sprites') // absolute URL of sprite image or relative to where the WebVTT file is stored
+       ->setRate(10) // sampling rate in seconds
+       ->setMinThumbs(20) // minimum number of images (will modify sampling rate accordingly if it would result in fewer images than this)
+       ->setWidth(120) // width of one thumbnail in px
        ->generate();
 ```
 
