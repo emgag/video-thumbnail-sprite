@@ -56,7 +56,7 @@ class ThumbnailSprite
     /**
      * @var string
      */
-    private $convertor = 'ffmpegthumbnailer';
+    private $converter = 'ffmpegthumbnailer';
 
     /**
      * @var boolean
@@ -73,25 +73,25 @@ class ThumbnailSprite
      */
     public function getConvertor()
     {
-        return $this->convertor;
+        return $this->converter;
     }
 
     /**
-     * @param string $convertor
+     * @param string $converter
      * @throws RuntimeException
      */
-    public function setConvertor($convertor)
+    public function setConvertor($converter)
     {
-        $convertorsWhitelist = [
+        $convertersWhitelist = [
             'ffmpeg',
             'ffmpegthumbnailer',
         ];
 
         if (!file_exists($source)) {
-            throw new RuntimeException(sprintf("convertor libarary %s is not supported! please select ffmpegthumbnailer or ffmpeg.", $convertor));
+            throw new RuntimeException(sprintf("converter libarary %s is not supported! please select ffmpegthumbnailer or ffmpeg.", $converter));
         }
 
-        $this->source = $convertor;
+        $this->source = $converter;
 
         return $this;
     }
@@ -395,7 +395,7 @@ class ThumbnailSprite
     }
 
     /**
-     * return generate thumbnail from video command base on selected convertor lib
+     * return generate thumbnail from video command base on selected converter lib
      *
      * @return  string [generate command]
      */

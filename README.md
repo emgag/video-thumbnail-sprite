@@ -36,7 +36,7 @@ $sprite->setSource('path-to-source-video.mp4')
        ->generate();
 ```
 
-in new version it use ffmpegthumbnailer as default convertor. it is faster than ffmpeg.
+in new version it use ffmpegthumbnailer as default converter. it is faster than ffmpeg.
 if you want to use ffmpeg should call setConvertor function:
 
 ```PHP
