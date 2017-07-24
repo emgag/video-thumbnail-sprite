@@ -71,7 +71,7 @@ class ThumbnailSprite
     /**
      * @return string
      */
-    public function getConvertor()
+    public function getConverter()
     {
         return $this->converter;
     }
@@ -80,7 +80,7 @@ class ThumbnailSprite
      * @param string $converter
      * @throws RuntimeException
      */
-    public function setConvertor($converter)
+    public function setConverter($converter)
     {
         $convertersWhitelist = [
             'ffmpeg',
@@ -401,7 +401,7 @@ class ThumbnailSprite
      */
     private function getGenerateThumbnailCommand()
     {
-        if ($this->getConvertor() == 'ffmpegthumbnailer') {
+        if ($this->getConverter() == 'ffmpegthumbnailer') {
             return 'ffmpegthumbnailer -t %d -i %s -s %d -o %s/%04d.jpg';
         }
 
