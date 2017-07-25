@@ -9,7 +9,6 @@ use Emgag\Flysystem\Tempdir;
 use FFMpeg\FFProbe;
 use Intervention\Image\ImageManagerStatic as Image;
 use League\Flysystem\Plugin\ListFiles;
-use RuntimeException;
 use Symfony\Component\Process\Process;
 
 /**
@@ -56,12 +55,7 @@ class ThumbnailSprite
     /**
      * @var string
      */
-    private $converter = 'ffmpegthumbnailer';
-
-    /**
-     * @var boolean
-     */
-    private $keepMainImages = false;
+    private $converter = 'ffmpeg';
 
     /**
      * @var string
@@ -78,20 +72,24 @@ class ThumbnailSprite
 
     /**
      * @param string $converter
-     * @throws RuntimeException
+     * @return $this
+     * @throws \RuntimeException
      */
-    public function setConverter($converter)
+    public function setConverter($converter = 'ffmpeg')
     {
         $convertersWhitelist = [
             'ffmpeg',
             'ffmpegthumbnailer',
         ];
 
-        if (!file_exists($source)) {
-            throw new RuntimeException(sprintf("converter libarary %s is not supported! please select ffmpegthumbnailer or ffmpeg.", $converter));
+        if (!in_array($converter, $convertersWhitelist)) {
+            throw new \RuntimeException(
+                sprintf("Converter library %s is not supported! Please select ffmpegthumbnailer or ffmpeg.",
+                    $converter)
+            );
         }
 
-        $this->source = $converter;
+        $this->converter = $converter;
 
         return $this;
     }
@@ -106,6 +104,7 @@ class ThumbnailSprite
 
     /**
      * @param string $prefix
+     * @return $this
      */
     public function setPrefix($prefix)
     {
@@ -124,11 +123,12 @@ class ThumbnailSprite
 
     /**
      * @param int $rate
+     * @return $this
      */
     public function setRate($rate)
     {
         if ($rate == 0) {
-            throw new \InvalidArgumentException('rate must be greater than 0');
+            throw new \InvalidArgumentException('Rate must be greater than 0');
         }
 
         $this->rate = intval($rate);
@@ -146,6 +146,7 @@ class ThumbnailSprite
 
     /**
      * @param int $width
+     * @return $this
      */
     public function setWidth($width)
     {
@@ -164,12 +165,13 @@ class ThumbnailSprite
 
     /**
      * @param string $source
-     * @throws RuntimeException
+     * @return $this
+     * @throws \RuntimeException
      */
     public function setSource($source)
     {
         if (!file_exists($source)) {
-            throw new RuntimeException(sprintf("source video file %s not found", $source));
+            throw new \RuntimeException(sprintf("Source video file %s not found", $source));
         }
 
         $this->source = $source;
@@ -187,6 +189,7 @@ class ThumbnailSprite
 
     /**
      * @param mixed $outputDirectory
+     * @return $this
      */
     public function setOutputDirectory($outputDirectory)
     {
@@ -205,6 +208,7 @@ class ThumbnailSprite
 
     /**
      * @param string $urlPrefix
+     * @return $this
      */
     public function setUrlPrefix($urlPrefix)
     {
@@ -223,6 +227,7 @@ class ThumbnailSprite
 
     /**
      * @param mixed $minThumbs
+     * @return $this
      */
     public function setMinThumbs($minThumbs)
     {
@@ -241,6 +246,7 @@ class ThumbnailSprite
 
     /**
      * @param mixed $outputImageDirectory
+     * @return $this
      */
     public function setOutputImageDirectory($outputImageDirectory)
     {
@@ -250,19 +256,10 @@ class ThumbnailSprite
     }
 
     /**
-     * @return mixed
-     */
-    public function keepMainImages()
-    {
-        $this->keepMainImages = true;
-
-        return $this;
-    }
-
-    /**
      * Generates sprite and WebVTT for selected video
      *
      * @throws \Exception
+     * @return string[]
      */
     public function generate()
     {
@@ -306,14 +303,9 @@ class ThumbnailSprite
             }
         }
 
-        if ($this->keepMainImages) {
-            if (is_null($this->outputImageDirectory)) {
-                throw new \RuntimeException("please set output image directory by call setOutputImageDirectory() function");
-            }
-
-            $tempPath = $tempDir->getPath();
+        if (!is_null($this->outputImageDirectory)) {
             foreach ($tempDir->listFiles() as $image) {
-                copy($tempPath . $image['path'], $this->outputImageDirectory . $image['basename']);
+                copy($tempDir->getPath() . $image['path'], $this->outputImageDirectory . $image['basename']);
             }
         }
 
@@ -326,8 +318,8 @@ class ThumbnailSprite
         );
 
         $spriteUrl = empty($this->getUrlPrefix())
-        ? basename($spriteFile)
-        : sprintf('%s/%s', $this->getUrlPrefix(), basename($spriteFile));
+            ? basename($spriteFile)
+            : sprintf('%s/%s', $this->getUrlPrefix(), basename($spriteFile));
 
         $cmd = sprintf('montage %1$s/*.jpg -tile %2$dx -geometry %3$dx%4$d+0+0 %5$s',
             $tempDir->getPath(),
@@ -341,7 +333,7 @@ class ThumbnailSprite
         $proc->run();
 
         if (!$proc->isSuccessful()) {
-            throw new RuntimeException($proc->getErrorOutput());
+            throw new \RuntimeException($proc->getErrorOutput());
         }
 
         // create WebVTT output
@@ -359,16 +351,16 @@ class ThumbnailSprite
             $y     = floor($i / $gridSize) * $firstImage->height();
 
             $vtt->addCue(new WebvttCue(
-                $this->secondsToCue($start),
-                $this->secondsToCue($end),
-                sprintf('%s#xywh=%d,%d,%d,%d',
-                    $spriteUrl,
-                    $x,
-                    $y,
-                    $firstImage->width(),
-                    $firstImage->height()
+                    $this->secondsToCue($start),
+                    $this->secondsToCue($end),
+                    sprintf('%s#xywh=%d,%d,%d,%d',
+                        $spriteUrl,
+                        $x,
+                        $y,
+                        $firstImage->width(),
+                        $firstImage->height()
+                    )
                 )
-            )
             );
         }
 
@@ -395,13 +387,13 @@ class ThumbnailSprite
     }
 
     /**
-     * return generate thumbnail from video command base on selected converter lib
+     * Returns generate thumbnail from video command base on selected converter lib
      *
      * @return  string [generate command]
      */
     private function getGenerateThumbnailCommand()
     {
-        if ($this->getConverter() == 'ffmpegthumbnailer') {
+        if ($this->getConverter() === 'ffmpegthumbnailer') {
             return 'ffmpegthumbnailer -t %d -i %s -s %d -o %s/%04d.jpg';
         }
 
