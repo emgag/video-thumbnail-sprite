@@ -58,7 +58,7 @@ To keep individual images of sprite instead of removing it after assembling the 
 $sprite->setOutputImageDirectory('dir-to-store-images');
 ```
 
-##Acknowledgments
+## Acknowledgments
 
 * Inspired by [vlanard/videoscripts](https://github.com/vlanard/videoscripts) and [scaryguy/jwthumbs](https://github.com/scaryguy/jwthumbs).
 * Thanks to [Mehrdad-Dadkhah](https://github.com/Mehrdad-Dadkhah) for adding ffmpegthumbnailer support and other additional features.
