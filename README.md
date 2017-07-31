@@ -8,7 +8,9 @@ PHP library for generating video thumbnail sprites to be used for thumbnails in 
 
 ## System requirements
 
-Tested with >=5.6, following binaries need to be installed
+PHP >=7.0 (see [Release 0.2](emgag/video-thumbnail-sprite/tree/v0.2) for the latest version supporting PHP 5.5/5.6).
+
+Following binaries need to be installed
 
 * Either [ffmpeg](http://www.ffmpeg.org/download.html) (tested with >= v2.2) or [ffmpegthumbnailer](https://github.com/dirkvdb/ffmpegthumbnailer)
 * [imagemagick](http://www.imagemagick.org/script/binary-releases.php) (tested with >= v6.6)
@@ -21,12 +23,9 @@ composer require emgag/video-thumbnail-sprite
 
 ## Usage
 
-**NOTE**: Method chaining, setting an alternative converter and keeping the individual images after generating the sprite image are only supported in the current master branch, not in the released version 0.2. 
-
 
 ```PHP
 use Emgag\Video\ThumbnailSprite\ThumbnailSprite;
-
 
 $sprite = new ThumbnailSprite();
 $sprite->setSource('path-to-source-video.mp4')
@@ -44,12 +43,12 @@ $sprite->setSource('path-to-source-video.mp4')
        ->generate();
 ```
 
-There are two different converters available, [ffmpeg](http://www.ffmpeg.org/download.html) (default) or [ffmpegthumbnailer](https://github.com/dirkvdb/ffmpegthumbnailer). 
+There are two different thumbnailing methods available, [ffmpeg](http://www.ffmpeg.org/download.html) (default) or [ffmpegthumbnailer](https://github.com/dirkvdb/ffmpegthumbnailer). 
 
-Change converter to ffmpegthumbnailer:
+Change thumbnailer to ffmpegthumbnailer:
 
 ```PHP
-$sprite->setConverter('ffmpegthumbnailer');
+$sprite->setThumbnailer(new Thumbnailer\FfmpegThumbnailer());
 ```
 
 To keep individual images of sprite instead of removing it after assembling the sprite: 

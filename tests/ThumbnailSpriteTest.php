@@ -1,11 +1,13 @@
 <?php
 
+use Emgag\Video\ThumbnailSprite\Thumbnailer\FfmpegThumbnailer;
 use Emgag\Video\ThumbnailSprite\ThumbnailSprite;
 use GuzzleHttp\Client;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
+use PHPUnit\Framework\TestCase;
 
-class ThumbnailSpriteTest extends PHPUnit_Framework_TestCase
+class ThumbnailSpriteTest extends TestCase
 {
 
     /**
@@ -13,7 +15,7 @@ class ThumbnailSpriteTest extends PHPUnit_Framework_TestCase
      */
     public $outputFS;
     public $testSrc = __DIR__ . '/test_data/bbb_sunflower_1080p_30fps_normal.mp4';
-    public $testSrcUrl = 'https://video.labs.gameswelt.de/big-bucks-bunny/bbb_sunflower_1080p_30fps_normal.mp4';
+    public $testSrcUrl = 'http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4';
 
     /**
      * {@inheritDoc}
@@ -49,12 +51,28 @@ class ThumbnailSpriteTest extends PHPUnit_Framework_TestCase
     public function testSpriteGeneration()
     {
         $ts = new ThumbnailSprite();
-        $ts->setSource($this->testSrc);
-        $ts->setOutputDirectory(dirname($this->testSrc));
-        $ts->generate();
+        $ts->setSource($this->testSrc)
+           ->setOutputDirectory(dirname($this->testSrc))
+           ->generate();
 
         $this->assertTrue($this->outputFS->has('sprite.jpg'));
         $this->assertTrue($this->outputFS->has('sprite.vtt'));
+    }
+
+    /**
+     * Sprite and vtt generation with ffmpegthumbnailer
+     */
+    public function testFFMPEGThumbnailer()
+    {
+        $ts = new ThumbnailSprite();
+        $ts->setSource($this->testSrc)
+           ->setOutputDirectory(dirname($this->testSrc))
+           ->setPrefix('ffmpegthumbnailer')
+           ->setThumbnailer(new FfmpegThumbnailer())
+           ->generate();
+
+        $this->assertTrue($this->outputFS->has('ffmpegthumbnailer.jpg'));
+        $this->assertTrue($this->outputFS->has('ffmpegthumbnailer.vtt'));
     }
 
     /**
@@ -63,11 +81,11 @@ class ThumbnailSpriteTest extends PHPUnit_Framework_TestCase
     public function testPrefixes()
     {
         $ts = new ThumbnailSprite();
-        $ts->setSource($this->testSrc);
-        $ts->setOutputDirectory(dirname($this->testSrc));
-        $ts->setPrefix('blubber');
-        $ts->setUrlPrefix('http://example.org');
-        $ts->generate();
+        $ts->setSource($this->testSrc)
+           ->setOutputDirectory(dirname($this->testSrc))
+           ->setPrefix('blubber')
+           ->setUrlPrefix('http://example.org')
+           ->generate();
 
         $this->assertTrue($this->outputFS->has('blubber.jpg'));
         $this->assertTrue($this->outputFS->has('blubber.vtt'));
@@ -100,9 +118,17 @@ class ThumbnailSpriteTest extends PHPUnit_Framework_TestCase
      */
     public function tearDown()
     {
-        $cleanup = ['sprite.jpg', 'sprite.vtt', 'blubber.jpg', 'blubber.vtt'];
+        $cleanup = [
+            'sprite.jpg',
+            'sprite.vtt',
+            'blubber.jpg',
+            'blubber.vtt',
+            'ffmpegthumbnailer.jpg',
+            'ffmpegthumbnailer.vtt'
+        ];
+
         foreach ($cleanup as $file) {
-            $this->outputFS->has($file) && $this->outputFS->delete($file);
+            //$this->outputFS->has($file) && $this->outputFS->delete($file);
         }
     }
 
