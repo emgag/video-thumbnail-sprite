@@ -58,12 +58,20 @@ class ThumbnailSprite
     /**
      * @var Thumbnailer\ThumbnailerInterface
      */
-    private $thumbnailer = null;
+    private $thumbnailer;
 
     /**
      * @var string
      */
     private $outputImageDirectory = '';
+
+    /**
+     * ThumbnailSprite constructor.
+     */
+    public function __construct()
+    {
+        $this->thumbnailer = new Ffmpeg();
+    }
 
     /**
      * @return ThumbnailerInterface
@@ -270,10 +278,6 @@ class ThumbnailSprite
                 // sample rate too high, let's adjust rate a little
                 $this->setRate((int)floor($duration / $this->getMinThumbs()));
             }
-        }
-
-        if (!$this->thumbnailer) {
-            $this->thumbnailer = new Ffmpeg();
         }
 
         $this->thumbnailer
