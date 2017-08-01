@@ -122,6 +122,7 @@ class ThumbnailSprite
     /**
      * @param int $rate
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setRate(int $rate): ThumbnailSprite
     {
@@ -169,7 +170,7 @@ class ThumbnailSprite
     public function setSource(string $source): ThumbnailSprite
     {
         if (!file_exists($source)) {
-            throw new \RuntimeException(sprintf("Source video file %s not found", $source));
+            throw new \RuntimeException(sprintf('Source video file %s not found', $source));
         }
 
         $this->source = $source;
@@ -267,7 +268,7 @@ class ThumbnailSprite
 
         // get basic info about video
         $ffprobe  = FFProbe::create()->format($this->getSource());
-        $duration = floatval($ffprobe->get('duration'));
+        $duration = (float)$ffprobe->get('duration');
 
         // check if sample rate is high enough to reach desired minimum amount of thumbnails
         if ($duration <= $this->getMinThumbs()) {
@@ -364,12 +365,12 @@ class ThumbnailSprite
     /**
      * Converts seconds to CUE time format HH:MM:SS.000
      *
-     * @param $seconds
+     * @param int $seconds
      * @return string
      */
-    private function secondsToCue($seconds)
+    private function secondsToCue(int $seconds): string
     {
-        return (new DateTime("@0"))
+        return (new DateTime('@0'))
             ->diff(new DateTime("@$seconds"))
             ->format('%H:%I:%S.000');
     }
