@@ -8,3 +8,7 @@ services:
     build: ./docker/php-7.1
     volumes:
       - .:/srv/app
+  php-7.2:
+    build: ./docker/php-7.2
+    volumes:
+      - .:/srv/app
