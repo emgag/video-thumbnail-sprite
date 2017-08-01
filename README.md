@@ -8,7 +8,7 @@ PHP library for generating video thumbnail sprites to be used for thumbnails in 
 
 ## System requirements
 
-PHP >=7.0 (see [Release 0.2](https://github.com/emgag/video-thumbnail-sprite/tree/v0.2) for the latest version supporting PHP 5.5/5.6).
+PHP >=7.0 (see [release 0.2](https://github.com/emgag/video-thumbnail-sprite/tree/v0.2) for the latest version supporting PHP 5.5/5.6).
 
 Following binaries need to be installed
 
@@ -38,12 +38,11 @@ $ret = $sprite->setSource('path-to-source-video.mp4')
        ->setRate(10) 
        // minimum number of images (will modify sampling rate accordingly if it would result in fewer images than this)
        ->setMinThumbs(20)
-       // width of one thumbnail in px 
+       // width of a single thumbnail in px 
        ->setWidth(120) 
        ->generate();
        
 // $ret = ['vttFile' => 'path-to-vtt-file', 'sprite' => 'path-to-sprite-file'] 
-       
 ```
 
 There are two different thumbnailing methods available, [ffmpeg](http://www.ffmpeg.org/download.html) (default) or [ffmpegthumbnailer](https://github.com/dirkvdb/ffmpegthumbnailer). 
@@ -55,7 +54,7 @@ $sprite->setThumbnailer(new Thumbnailer\Ffmpeg());
 $sprite->setThumbnailer(new Thumbnailer\FfmpegThumbnailer());
 ```
 
-To keep individual images of sprite instead of removing it after assembling the sprite: 
+To keep individual source images of the sprite instead of removing it after assembling the sprite into a single image: 
 
 ```PHP
 $sprite->setOutputImageDirectory('dir-to-store-images');
