@@ -28,7 +28,7 @@ composer require emgag/video-thumbnail-sprite
 use Emgag\Video\ThumbnailSprite\ThumbnailSprite;
 
 $sprite = new ThumbnailSprite();
-$sprite->setSource('path-to-source-video.mp4')
+$ret = $sprite->setSource('path-to-source-video.mp4')
        ->setOutputDirectory('dir-to-store-sprite-and-vtt')
        // filename prefix for image sprite and WebVTT file (defaults to "sprite", resulting in "sprite.jpg" and "sprite.vtt")
        ->setPrefix('sprite') 
@@ -41,13 +41,17 @@ $sprite->setSource('path-to-source-video.mp4')
        // width of one thumbnail in px 
        ->setWidth(120) 
        ->generate();
+       
+// $ret = ['vttFile' => 'path-to-vtt-file', 'sprite' => 'path-to-sprite-file'] 
+       
 ```
 
 There are two different thumbnailing methods available, [ffmpeg](http://www.ffmpeg.org/download.html) (default) or [ffmpegthumbnailer](https://github.com/dirkvdb/ffmpegthumbnailer). 
 
-Change thumbnailer to ffmpegthumbnailer:
-
 ```PHP
+// default, is set implicitely if not provided
+$sprite->setThumbnailer(new Thumbnailer\Ffmpeg());
+// change thumbnailer to ffmpegthumbnailer
 $sprite->setThumbnailer(new Thumbnailer\FfmpegThumbnailer());
 ```
 
