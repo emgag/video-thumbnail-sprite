@@ -30,7 +30,7 @@ class ThumbnailSpriteTest extends TestCase
                 $client   = new Client();
                 $response = $client->get($this->testSrcUrl, ['stream' => true]);
                 $body     = $response->getBody();
-                $fh       = fopen($this->testSrc, 'w');
+                $fh       = fopen($this->testSrc, 'wb');
 
                 while (!$body->eof()) {
                     fwrite($fh, $body->read(4096));
@@ -50,13 +50,16 @@ class ThumbnailSpriteTest extends TestCase
      */
     public function testSpriteGeneration()
     {
-        $ts = new ThumbnailSprite();
-        $ts->setSource($this->testSrc)
-           ->setOutputDirectory(dirname($this->testSrc))
-           ->generate();
+        $ts  = new ThumbnailSprite();
+        $ret = $ts->setSource($this->testSrc)
+                  ->setOutputDirectory(dirname($this->testSrc))
+                  ->generate();
 
-        $this->assertTrue($this->outputFS->has('sprite.jpg'));
-        $this->assertTrue($this->outputFS->has('sprite.vtt'));
+        $this->assertArrayHasKey('vttFile', $ret);
+        $this->assertArrayHasKey('sprite', $ret);
+
+        $this->assertTrue($this->outputFS->has(basename($ret['vttFile'])));
+        $this->assertTrue($this->outputFS->has(basename($ret['sprite'])));
     }
 
     /**
@@ -64,15 +67,18 @@ class ThumbnailSpriteTest extends TestCase
      */
     public function testFFMPEGThumbnailer()
     {
-        $ts = new ThumbnailSprite();
-        $ts->setSource($this->testSrc)
-           ->setOutputDirectory(dirname($this->testSrc))
-           ->setPrefix('ffmpegthumbnailer')
-           ->setThumbnailer(new FfmpegThumbnailer())
-           ->generate();
+        $ts  = new ThumbnailSprite();
+        $ret = $ts->setSource($this->testSrc)
+                  ->setOutputDirectory(dirname($this->testSrc))
+                  ->setPrefix('ffmpegthumbnailer')
+                  ->setThumbnailer(new FfmpegThumbnailer())
+                  ->generate();
 
-        $this->assertTrue($this->outputFS->has('ffmpegthumbnailer.jpg'));
-        $this->assertTrue($this->outputFS->has('ffmpegthumbnailer.vtt'));
+        $this->assertArrayHasKey('vttFile', $ret);
+        $this->assertArrayHasKey('sprite', $ret);
+
+        $this->assertTrue($this->outputFS->has(basename($ret['vttFile'])));
+        $this->assertTrue($this->outputFS->has(basename($ret['sprite'])));
     }
 
     /**
@@ -80,15 +86,21 @@ class ThumbnailSpriteTest extends TestCase
      */
     public function testPrefixes()
     {
-        $ts = new ThumbnailSprite();
-        $ts->setSource($this->testSrc)
-           ->setOutputDirectory(dirname($this->testSrc))
-           ->setPrefix('blubber')
-           ->setUrlPrefix('http://example.org')
-           ->generate();
+        $ts  = new ThumbnailSprite();
+        $ret = $ts->setSource($this->testSrc)
+                  ->setOutputDirectory(dirname($this->testSrc))
+                  ->setPrefix('blubber')
+                  ->setUrlPrefix('http://example.org')
+                  ->generate();
 
-        $this->assertTrue($this->outputFS->has('blubber.jpg'));
-        $this->assertTrue($this->outputFS->has('blubber.vtt'));
+        $this->assertArrayHasKey('vttFile', $ret);
+        $this->assertArrayHasKey('sprite', $ret);
+
+        $this->assertEquals(dirname($this->testSrc) . '/blubber.vtt', $ret['vttFile']);
+        $this->assertEquals(dirname($this->testSrc) . '/blubber.jpg', $ret['sprite']);
+
+        $this->assertTrue($this->outputFS->has(basename($ret['vttFile'])));
+        $this->assertTrue($this->outputFS->has(basename($ret['sprite'])));
 
         $vtt = $this->outputFS->read('blubber.vtt');
 
