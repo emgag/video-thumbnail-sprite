@@ -251,7 +251,7 @@ class ThumbnailSprite
      * @throws \Exception
      * @return string[]
      */
-    public function generate()
+    public function generate(): array
     {
         // create temporay directory
         $tempDir = new Tempdir('sprite');
