@@ -1,5 +1,6 @@
 <?php
 
+use Emgag\Flysystem\Tempdir;
 use Emgag\Video\ThumbnailSprite\Thumbnailer\Ffmpeg;
 use Emgag\Video\ThumbnailSprite\Thumbnailer\FfmpegThumbnailer;
 use Emgag\Video\ThumbnailSprite\Thumbnailer\ThumbnailerInterface;
@@ -9,6 +10,7 @@ use Intervention\Image\Image;
 use Intervention\Image\ImageManagerStatic;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
+use League\Flysystem\Plugin\ListFiles;
 use PHPUnit\Framework\TestCase;
 
 class ThumbnailSpriteTest extends TestCase
@@ -134,7 +136,7 @@ class ThumbnailSpriteTest extends TestCase
         $ret = $ts->setSource($this->testData['src'])
                   ->setOutputDirectory(dirname($this->testData['src']))
                   ->setPrefix('ffmpegthumbnailer')
-                  ->setThumbnailer(new FfmpegThumbnailer())
+                  ->setThumbnailer(new FfmpegThumbnailer)
                   ->generate();
 
         $this->assertArrayHasKey('vttFile', $ret);
@@ -175,6 +177,29 @@ class ThumbnailSpriteTest extends TestCase
         $vtt = $this->outputFS->read('blubber.vtt');
 
         $this->assertContains('http://example.org/blubber.jpg#xywh', $vtt);
+    }
+
+    /**
+     * Test keeping output images
+     */
+    public function testKeepOutputImages()
+    {
+        $output = new Tempdir('outputdir');
+        $output->addPlugin(new ListFiles);
+
+        $ts  = new ThumbnailSprite();
+        $ret = $ts->setSource($this->testData['src'])
+                  ->setOutputDirectory(dirname($this->testData['src']))
+                  ->setOutputImageDirectory($output->getPath())
+                  ->generate();
+
+        // output directory should contain
+        $imageCount = (int)ceil($this->testData['length'] / $ts->getRate());
+        $this->assertCount($imageCount, $output->listFiles());
+
+        for ($i = 0; $i < $imageCount; $i++) {
+            $this->assertFileExists(sprintf('%s/%04d.jpg', $output->getPath(), $i));
+        }
     }
 
     /**
