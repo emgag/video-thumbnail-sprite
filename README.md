@@ -49,7 +49,7 @@ $ret = $sprite->setSource('path-to-source-video.mp4')
 There are two different thumbnailing methods available, [ffmpeg](http://www.ffmpeg.org/download.html) (default) or [ffmpegthumbnailer](https://github.com/dirkvdb/ffmpegthumbnailer). 
 
 ```PHP
-// default, is set implicitely if not provided
+// default, is set implicitly if not provided
 $sprite->setThumbnailer(new Thumbnailer\Ffmpeg());
 // change thumbnailer to ffmpegthumbnailer
 $sprite->setThumbnailer(new Thumbnailer\FfmpegThumbnailer());
