@@ -12,8 +12,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Method chaining.
 - Support for different thumbnailing tools (ffmpeg and ffmpegthumbnailer).
 - Option to keep generated temporary images instead of deleting after sprite assembly (setOutputImageDirectory). 
-- Support for Symfony Process >=3
-- Docker images for unit testing 
+- Support for Symfony Process >=3.
+- Docker images for unit testing.
 
 ### Changed
 
