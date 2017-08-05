@@ -1,0 +1,14 @@
+version: '2'
+services:
+  php-7.0:
+    build: ./docker/php-7.0
+    volumes:
+      - .:/srv/app
+  php-7.1:
+    build: ./docker/php-7.1
+    volumes:
+      - .:/srv/app
+  php-7.2:
+    build: ./docker/php-7.2
+    volumes:
+      - .:/srv/app
