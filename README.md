@@ -2,13 +2,12 @@
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![Packagist Version](https://img.shields.io/packagist/v/emgag/video-thumbnail-sprite.svg?style=flat-square)](https://packagist.org/packages/emgag/video-thumbnail-sprite)
-[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active)
 
 PHP library for generating video thumbnail sprites to be used for thumbnails in [JWPlayer](https://support.jwplayer.com/customer/portal/articles/1407439-adding-preview-thumbnails)'s seek bar. For a real world example used in production, see [gameswelt.de](http://www.gameswelt.de/the-witcher-3-wild-hunt/test/multipler-rollenspielorgasmus,238958).
 
 ## System requirements
 
-PHP >=7.0 (see [release 0.2](https://github.com/emgag/video-thumbnail-sprite/tree/v0.2) for the latest version supporting PHP 5.5/5.6).
+PHP 7.0 & 7.1 (see [release 0.2](https://github.com/emgag/video-thumbnail-sprite/tree/v0.2) for the latest version supporting PHP 5.5/5.6).
 
 Following binaries need to be installed
 
