@@ -10,7 +10,7 @@
   "homepage": "https://github.com/emgag/video-thumbnail-sprite",
   "type": "library",
   "require": {
-    "php": ">=7.0",
+    "php": "~7.0.0|~7.1.0",
     "intervention/image": "^2.0",
     "symfony/process": "^2.5|^3.0",
     "captioning/captioning": "^2.0",
