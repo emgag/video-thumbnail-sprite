@@ -82,16 +82,7 @@ class ThumbnailSprite
      */
     public function setConverter($converter)
     {
-        $convertersWhitelist = [
-            'ffmpeg',
-            'ffmpegthumbnailer',
-        ];
-
-        if (!file_exists($source)) {
-            throw new RuntimeException(sprintf("converter libarary %s is not supported! please select ffmpegthumbnailer or ffmpeg.", $converter));
-        }
-
-        $this->source = $converter;
+        $this->converter = $converter;
 
         return $this;
     }
