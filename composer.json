@@ -1,31 +1,36 @@
 {
-    "name": "emgag/video-thumbnail-sprite",
-    "description": "PHP library for generating video thumbnail sprites",
-    "keywords": ["jwplayer", "sprite", "ffmpeg"],
-    "homepage": "https://github.com/emgag/video-thumbnail-sprite",
-    "type": "library",
-    "require": {
-	"php": ">=5.5",
-        "intervention/image": "^2.0",
-        "symfony/process": "^2.5",
-        "captioning/captioning": "^2.0",
-        "php-ffmpeg/php-ffmpeg": "^0.6",
-        "emgag/flysystem-tempdir": "^0.1.0"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "4.6.*",
-	"guzzlehttp/guzzle": "^5.0|^6.0"
-    },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Matthias Blaser",
-            "email": "git@mooch.ch"
-        }
-    ],
-    "autoload": {
-	    "psr-4": {
-		    "Emgag\\Video\\ThumbnailSprite\\": "src/"
-	    }
+  "name": "emgag/video-thumbnail-sprite",
+  "description": "PHP library for generating video thumbnail sprites",
+  "keywords": [
+    "jwplayer",
+    "sprite",
+    "ffmpeg",
+    "ffmpegthumbnailer"
+  ],
+  "homepage": "https://github.com/emgag/video-thumbnail-sprite",
+  "type": "library",
+  "require": {
+    "php": "7.*",
+    "intervention/image": "^2.0",
+    "symfony/process": "^2.5|^3.0",
+    "captioning/captioning": "^2.0",
+    "php-ffmpeg/php-ffmpeg": "^0.6",
+    "emgag/flysystem-tempdir": "^0.1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.2",
+    "guzzlehttp/guzzle": "^5.0|^6.0"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Matthias Blaser",
+      "email": "git@mooch.ch"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Emgag\\Video\\ThumbnailSprite\\": "src/"
+    }
+  }
 }
