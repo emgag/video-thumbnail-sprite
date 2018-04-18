@@ -1,4 +1,4 @@
-FROM php:7.2-rc-cli
+FROM php:7.2-cli
 
 # php, composer & deps setup
 RUN apt-get update && apt-get install -y \
