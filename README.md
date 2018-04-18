@@ -7,7 +7,7 @@ PHP library for generating video thumbnail sprites to be used for thumbnails in 
 
 ## System requirements
 
-PHP 7.0 & 7.1 (see [release 0.2](https://github.com/emgag/video-thumbnail-sprite/tree/v0.2) for the latest version supporting PHP 5.5/5.6).
+PHP 7.x (see [release 0.2](https://github.com/emgag/video-thumbnail-sprite/tree/v0.2) for the latest version supporting PHP 5.5/5.6).
 
 Following binaries need to be installed
 
