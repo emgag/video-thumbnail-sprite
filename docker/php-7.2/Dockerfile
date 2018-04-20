@@ -24,8 +24,8 @@ RUN apt-get update && apt-get install -y \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
-#RUN pecl install xdebug
-#RUN docker-php-ext-enable xdebug
+RUN pecl install xdebug
+RUN docker-php-ext-enable xdebug
 
 RUN curl https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
