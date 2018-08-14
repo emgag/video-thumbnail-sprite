@@ -3,7 +3,9 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![Packagist Version](https://img.shields.io/packagist/v/emgag/video-thumbnail-sprite.svg?style=flat-square)](https://packagist.org/packages/emgag/video-thumbnail-sprite)
 
-PHP library for generating video thumbnail sprites to be used for thumbnails in [JWPlayer](https://support.jwplayer.com/customer/portal/articles/1407439-adding-preview-thumbnails)'s seek bar. For a real world example used in production, see [gameswelt.de](http://www.gameswelt.de/the-witcher-3-wild-hunt/test/multipler-rollenspielorgasmus,238958).
+**WARNING**: This library is in maintenance-only mode. While it's stable (and has been for many years) and we still do minimal maintenance for this library, we don't use it in production anymore and it will not receive new features from now on. **/WARNING**
+
+PHP library for generating video thumbnail sprites to be used for thumbnails in [JWPlayer](https://support.jwplayer.com/customer/portal/articles/1407439-adding-preview-thumbnails)'s seek bar. 
 
 ## System requirements
 
